@@ -46,26 +46,23 @@ namespace Blazor2App.Server.Controllers.V1.StudentController
         [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(GetAll.ResponseExample))]
         public async Task<IEnumerable<StudentModel>> GetAllAsync(CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(GetAllStudentsQuery.CreateQuery(), cancellationToken);
 
-            return (response.Students);
-            //var cacheKey = "studentsCacheKey";
-            //if (_memoryCache.TryGetValue(cacheKey, out IEnumerable<StudentModel> students))
-            //{
-            //    return Ok(GetAll.Response.Create(students));
-            //}
-            //else
-            //{
-                
+            var cacheKey = "studentsCacheKey";
+            if (_memoryCache.TryGetValue(cacheKey, out IEnumerable<StudentModel> students))
+            {
+                return GetAll.Response.Create(students).StudentModels;
+            }
+            else
+            {
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromSeconds(45))
+                    .SetAbsoluteExpiration(TimeSpan.FromSeconds(3600))
+                    .SetPriority(CacheItemPriority.Normal);
+                var response = await _mediator.Send(GetAllStudentsQuery.CreateQuery(), cancellationToken);
 
-            //    var cacheEntryOptions = new MemoryCacheEntryOptions()
-            //        .SetSlidingExpiration(TimeSpan.FromSeconds(45))
-            //        .SetAbsoluteExpiration(TimeSpan.FromSeconds(3600))
-            //        .SetPriority(CacheItemPriority.Normal);
-
-            //    _memoryCache.Set(cacheKey, response, cacheEntryOptions);
-
-            //}
+                _memoryCache.Set(cacheKey, response, cacheEntryOptions);
+                return (response.Students);
+            }
         }
 
         // GET api/<StudentController>/5

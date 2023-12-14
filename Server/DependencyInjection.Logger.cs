@@ -1,4 +1,8 @@
-﻿namespace Blazor2App.Server
+﻿
+
+using MediatR;
+
+namespace Blazor2App.Server
 {
     public partial class DependencyInjection
     {
@@ -9,7 +13,7 @@
         /// <param name="configuration"></param>
         public static void RegisterLogger(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddScoped(typeof(IPipelineBehavior<,>), typeof(Infra.Mediator.LoggingBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(Infra.Mediator.LoggingBehavior<,>));
         }
     }
 }

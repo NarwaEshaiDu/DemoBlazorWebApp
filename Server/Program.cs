@@ -5,6 +5,8 @@ using Blazor2App.Database.Base;
 using Blazor2App.Database.Entities;
 using Blazor2App.Repository.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Core;
 
 namespace Blazor2App.Server
 {
@@ -18,7 +20,15 @@ namespace Blazor2App.Server
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.RegisterDependencies(builder.Configuration);
-            //builder.Host.UseSerilog();
+            builder.Host.UseSerilog();
+
+            var levelSwitch = new LoggingLevelSwitch(Serilog.Events.LogEventLevel.Information);
+            Log.Logger = new LoggerConfiguration()
+               .MinimumLevel.ControlledBy(levelSwitch)
+               .WriteTo.Console(levelSwitch: levelSwitch).CreateLogger();
+
+            //.Destructure.UsingAttributes() 
+
 
             builder.Services.AddDbContext<DataContext>(options =>
             {
@@ -61,7 +71,7 @@ namespace Blazor2App.Server
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            //app.UseSerilogRequestLogging();
+            app.UseSerilogRequestLogging();
             app.MapRazorPages();
             app.MapControllers();
             app.MapFallbackToFile("index.html");
