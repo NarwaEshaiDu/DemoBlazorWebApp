@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>Blazor2App.Server-c1a5400a-b50e-4bd7-9121-41ef527a6512</UserSecretsId>
+    <WebProject_DirectoryAccessLevelKey>0</WebProject_DirectoryAccessLevelKey>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.1.0" />
+	  <PackageReference Include="Autofac" Version="7.1.0" />
+	  <PackageReference Include="MassTransit" Version="8.1.2" />
+	  <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.1.2" />
+	  <PackageReference Include="MediatR" Version="12.2.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.14" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
+	  <PackageReference Include="Microsoft.Identity.Web" Version="2.16.0" />
+	  <PackageReference Include="Serilog" Version="3.1.1" />
+	  <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+	  <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+	  <PackageReference Include="SerilogMetrics" Version="2.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.12" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blazor2App.Application\Blazor2App.Application.csproj" />
+    <ProjectReference Include="..\Blazor2App.Database\Blazor2App.Database.csproj" />
+    <ProjectReference Include="..\Blazor2App.Repository\Blazor2App.Repository.csproj" />
+    <ProjectReference Include="..\Blazor2App.ServiceBus\Blazor2App.ServiceBus.csproj" />
+    <ProjectReference Include="..\Client\Blazor2App.Client.csproj" />
+    <ProjectReference Include="..\Shared\Blazor2App.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infra\Logging\" />
+  </ItemGroup>
+
+</Project>

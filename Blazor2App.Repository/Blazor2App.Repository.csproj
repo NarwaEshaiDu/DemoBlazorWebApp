@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="7.101.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blazor2App.Application\Blazor2App.Application.csproj" />
+    <ProjectReference Include="..\Blazor2App.Database\Blazor2App.Database.csproj" />
+  </ItemGroup>
+
+</Project>
