@@ -4,6 +4,7 @@ using Blazor2App.Application.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Serilog;
 using Swashbuckle.AspNetCore.Filters;
 using System.Net;
 
@@ -19,6 +20,7 @@ namespace Blazor2App.Server.Controllers.V1.StudentController
     {
         private readonly IMediator _mediator;
         private readonly IMemoryCache _memoryCache;
+        private static readonly SemaphoreSlim semaphore = new(1, 1);
 
         /// <summary>
         /// CTOR
@@ -27,8 +29,8 @@ namespace Blazor2App.Server.Controllers.V1.StudentController
         /// <param name="memoryCache"></param>
         public StudentController(IMediator mediator, IMemoryCache memoryCache)
         {
-            _mediator = mediator;
-            _memoryCache = memoryCache;
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
         }
 
         /// <summary>
@@ -44,24 +46,42 @@ namespace Blazor2App.Server.Controllers.V1.StudentController
         [HttpGet("")]
         [ProducesResponseType(typeof(IEnumerable<StudentModel>), (int)HttpStatusCode.OK)]
         [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(GetAll.ResponseExample))]
-        public async Task<IEnumerable<StudentModel>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
         {
-
             var cacheKey = "studentsCacheKey";
             if (_memoryCache.TryGetValue(cacheKey, out IEnumerable<StudentModel> students))
             {
-                return GetAll.Response.Create(students).StudentModels;
+                Log.Logger.Warning("Student list still populated.");
+                return Ok(GetAll.Response.Create(students).StudentModels);
             }
             else
             {
-                var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromSeconds(45))
-                    .SetAbsoluteExpiration(TimeSpan.FromSeconds(3600))
-                    .SetPriority(CacheItemPriority.Normal);
-                var response = await _mediator.Send(GetAllStudentsQuery.CreateQuery(), cancellationToken);
+                try
+                {
+                    await semaphore.WaitAsync(cancellationToken);
+                    if (_memoryCache.TryGetValue(cacheKey, out students))
+                    {
+                        Log.Logger.Warning("Student list still populated.");
+                        return Ok(GetAll.Response.Create(students).StudentModels);
+                    }
+                    else
+                    {
+                        var cacheEntryOptions = new MemoryCacheEntryOptions()
+                           .SetSlidingExpiration(TimeSpan.FromSeconds(45))
+                           .SetAbsoluteExpiration(TimeSpan.FromSeconds(3600))
+                           .SetPriority(CacheItemPriority.Normal)
+                           .SetSize(1024);
+                        var response = await _mediator.Send(GetAllStudentsQuery.CreateQuery(), cancellationToken);
 
-                _memoryCache.Set(cacheKey, response, cacheEntryOptions);
-                return (response.Students);
+                        Log.Logger.Warning("populating students list");
+                        _memoryCache.Set(cacheKey, response.Students, cacheEntryOptions);
+                        return Ok(response.Students);
+                    }
+                }
+                finally
+                {
+                    semaphore.Release();
+                }
             }
         }
 

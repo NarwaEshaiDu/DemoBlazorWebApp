@@ -12,7 +12,7 @@ namespace Blazor2App.ServiceBus
         }
         public Task Consume(ConsumeContext<Hello> context)
         {
-            _logger.LogInformation("idk what im doing {name}", context.Message.Name);
+            _logger.LogWarning("idk what im doing {name}", context.Message.Name);
             return Task.CompletedTask;
         }
     }

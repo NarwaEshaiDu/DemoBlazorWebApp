@@ -1,6 +1,8 @@
 ﻿
 
 using MediatR;
+using Serilog.Core;
+using Serilog;
 
 namespace Blazor2App.Server
 {
@@ -13,6 +15,11 @@ namespace Blazor2App.Server
         /// <param name="configuration"></param>
         public static void RegisterLogger(this IServiceCollection services, IConfiguration configuration)
         {
+            var levelSwitch = new LoggingLevelSwitch(Serilog.Events.LogEventLevel.Warning);
+            Log.Logger = new LoggerConfiguration()
+               .MinimumLevel.ControlledBy(levelSwitch)
+               .WriteTo.Console(levelSwitch: levelSwitch).CreateLogger();
+
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(Infra.Mediator.LoggingBehavior<,>));
         }
     }

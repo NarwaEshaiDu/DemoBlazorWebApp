@@ -22,14 +22,6 @@ namespace Blazor2App.Server
             builder.Services.RegisterDependencies(builder.Configuration);
             builder.Host.UseSerilog();
 
-            var levelSwitch = new LoggingLevelSwitch(Serilog.Events.LogEventLevel.Information);
-            Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.ControlledBy(levelSwitch)
-               .WriteTo.Console(levelSwitch: levelSwitch).CreateLogger();
-
-            //.Destructure.UsingAttributes() 
-
-
             builder.Services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

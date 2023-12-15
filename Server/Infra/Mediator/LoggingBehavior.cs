@@ -12,7 +12,7 @@ namespace Blazor2App.Server.Infra.Mediator
         {
             using (LogContext.PushProperty("request", request, true))
             {
-                using (Log.Logger.BeginTimedOperation("Mediator handler", null, LogEventLevel.Information, TimeSpan.FromMilliseconds(200), propertyValues: typeof(TRequest).Name))
+                using (Log.Logger.BeginTimedOperation("Mediator handler", null, LogEventLevel.Debug, TimeSpan.FromMilliseconds(200), propertyValues: typeof(TRequest).Name))
                 {
                     Log.Error("Start {requestType}", typeof(TRequest).Name);
                     var response = await next();
