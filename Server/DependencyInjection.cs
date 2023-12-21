@@ -1,4 +1,8 @@
 ﻿using Asp.Versioning;
+using Blazor2App.Application.Features.Schema;
+using Blazor2App.Application.Features.Schema.Mutations;
+using Blazor2App.Application.Features.Schema.Queries;
+using Blazor2App.Application.Features.Students.Queries;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
@@ -22,7 +26,15 @@ namespace Blazor2App.Server
             RegisterSwagger(services, configuration);
 
             services.AddRazorPages();
+
+          
+    services.AddGraphQLServer()
+            .AddQueryType<Query>()
+            .AddMutationType<Mutation>();
+
+
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 

@@ -17,7 +17,7 @@
 //            });
 //        });
 
-      
+
 
 //        services.AddScoped<IRegistrationValidationService, RegistrationValidationService>();
 //        services.AddMassTransit(x =>

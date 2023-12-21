@@ -10,7 +10,6 @@
 
   <ItemGroup>
 	  <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.1.0" />
-	  <PackageReference Include="Autofac" Version="7.1.0" />
 	  <PackageReference Include="MassTransit" Version="8.1.2" />
 	  <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.1.2" />
 	  <PackageReference Include="MediatR" Version="12.2.0" />

@@ -26,6 +26,7 @@ namespace Blazor2App.Server
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+
             builder.Services.AddDbContext<RegistrationDbContext>(x =>
             {
                 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -84,6 +85,7 @@ namespace Blazor2App.Server
             app.MapRazorPages();
             app.MapControllers();
             app.MapFallbackToFile("index.html");
+            app.MapGraphQL("/graphql");
             app.Run();
         }
     }
