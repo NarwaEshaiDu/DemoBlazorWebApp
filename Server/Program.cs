@@ -1,12 +1,11 @@
 using Asp.Versioning.ApiExplorer;
-using Autofac.Core;
-using Blazor2App.Application.Repositories;
 using Blazor2App.Database.Base;
-using Blazor2App.Database.Entities;
-using Blazor2App.Repository.Repositories;
+using Blazor2App.Services;
+using MassTransit;
+using MassTransit.EntityFrameworkCoreIntegration;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Serilog.Core;
+using System.Reflection;
 
 namespace Blazor2App.Server
 {
@@ -27,8 +26,26 @@ namespace Blazor2App.Server
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            builder.Services.AddDbContext<RegistrationDbContext>(x =>
+            {
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+                x.UseSqlServer(connectionString, options =>
+                {
+                    options.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+                    options.MigrationsHistoryTable($"__{nameof(RegistrationDbContext)}");
+
+                    options.EnableRetryOnFailure(5);
+                    options.MinBatchSize(1);
+                });
+            });
+
+            builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+
+            builder.Services.AddSingleton<ILockStatementProvider, SqlServerLockStatementProvider>();
+
             var app = builder.Build();
-        
+
 
             if (app.Environment.IsDevelopment())
             {

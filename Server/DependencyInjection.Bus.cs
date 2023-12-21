@@ -1,4 +1,5 @@
-﻿using Blazor2App.ServiceBus;
+﻿using Blazor2App.Database.Base;
+using Blazor2App.ServiceBus;
 using MassTransit;
 using System.Reflection;
 
@@ -23,6 +24,13 @@ namespace Blazor2App.Server
                 //Different library class
                 var entryAssembly = Assembly.GetAssembly(typeof(Worker));
 
+                x.AddEntityFrameworkOutbox<RegistrationDbContext>(o =>
+                {
+                    o.QueryDelay = TimeSpan.FromSeconds(1);
+
+                    o.UseSqlServer();
+                    o.UseBusOutbox();
+                });
 
                 x.AddSagaStateMachines(entryAssembly);
                 x.AddSagas(entryAssembly);
@@ -30,6 +38,7 @@ namespace Blazor2App.Server
 
                 x.UsingAzureServiceBus((context, cfg) =>
                 {
+                    cfg.AutoStart = true;
                     cfg.Host(host);
 
                     IEndpointNameFormatter endpointNameFormatter = new KebabCaseEndpointNameFormatter(true);
