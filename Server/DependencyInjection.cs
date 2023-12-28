@@ -19,18 +19,16 @@ namespace Blazor2App.Server
         public static void RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             RegisterServices(services, configuration);
-            RegisterBus(services, configuration);
+            //RegisterBus(services, configuration);
             RegisterLogger(services, configuration);
             RegisterSwagger(services, configuration);
+            RegisterGraphQL(services, configuration);
 
             services.AddRazorPages();
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
-            services.AddGraphQLServer()
-                    .AddQueryType<Query>()
-                    .AddMutationType<Mutation>();
-
+        
             services.AddControllersWithViews();
             services.AddRazorPages();
 

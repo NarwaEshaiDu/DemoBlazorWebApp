@@ -10,8 +10,9 @@
 
   <ItemGroup>
 	  <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.1.0" />
-	  <PackageReference Include="MassTransit" Version="8.1.2" />
-	  <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.1.2" />
+	  <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="13.8.1" />
+	  <PackageReference Include="MassTransit" Version="8.1.3" />
+	  <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.1.3" />
 	  <PackageReference Include="MediatR" Version="12.2.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.14" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14">
@@ -35,7 +36,6 @@
     <ProjectReference Include="..\Blazor2App.Database\Blazor2App.Database.csproj" />
     <ProjectReference Include="..\Blazor2App.Repository\Blazor2App.Repository.csproj" />
     <ProjectReference Include="..\Blazor2App.ServiceBus\Blazor2App.ServiceBus.csproj" />
-    <ProjectReference Include="..\Blazor2App.Services\Blazor2App.Services.csproj" />
     <ProjectReference Include="..\Client\Blazor2App.Client.csproj" />
     <ProjectReference Include="..\Shared\Blazor2App.Shared.csproj" />
   </ItemGroup>

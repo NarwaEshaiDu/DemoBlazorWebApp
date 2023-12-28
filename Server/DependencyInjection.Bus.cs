@@ -24,14 +24,6 @@ namespace Blazor2App.Server
                 //Different library class
                 var entryAssembly = Assembly.GetAssembly(typeof(Worker));
 
-                //x.AddEntityFrameworkOutbox<RegistrationDbContext>(o =>
-                //{
-                //    o.QueryDelay = TimeSpan.FromSeconds(1);
-
-                //    o.UseSqlServer();
-                //    o.UseBusOutbox();
-                //});
-
                 x.AddSagaStateMachines(entryAssembly);
                 x.AddSagas(entryAssembly);
                 x.AddActivities(entryAssembly);
