@@ -7,13 +7,19 @@ namespace Blazor2App.Server
     {
         public static void RegisterGraphQL(this IServiceCollection services, IConfiguration configuration)
         {
+            services
+                .AddRouting();
 
-            services.AddGraphQLServer()
-                .AddQueryType<Query>()
-                .AddMutationType<Mutation>()
-                .AddAuthorization()
-                ;
+            services
+                .AddGraphQLServer()
+                .AddQueryType<QueryCourses>()
+                .AddMutationType<Mutation>();
 
+
+            //TODO: make dynamic like dbcontext
+            services
+                .AddGraphQLServer("studentSchema")
+                .AddQueryType<QueryStudents>();
         }
     }
 }

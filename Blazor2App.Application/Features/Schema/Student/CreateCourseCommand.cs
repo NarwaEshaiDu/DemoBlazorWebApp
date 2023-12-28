@@ -1,14 +1,14 @@
 ﻿using Blazor2App.Application.Features.Schema.DTO;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Blazor2App.Application.Features.Schema.Student
 {
-    public class CreateTodoCommand : IRequest<Todo>
+    public class CreateCourseCommands : IRequest<List<CourseModel>>
+    {
+        public string Title { get; set; }
+    }
+
+    public class CreateCourseCommand : IRequest<CourseModel>
     {
         public string Title { get; set; }
     }

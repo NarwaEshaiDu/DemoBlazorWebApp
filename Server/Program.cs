@@ -58,14 +58,19 @@ namespace Blazor2App.Server
                 c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
             });
 
-            app.UseRouting();
+            app.UseRouting()
+               .UseEndpoints(endpoints =>
+               {
+                   endpoints.MapGraphQL();
+                   endpoints.MapGraphQL("/student/graphql", schemaName: "studentSchema");
+               });
+
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSerilogRequestLogging();
             app.MapRazorPages();
             app.MapControllers();
             app.MapFallbackToFile("index.html");
-            app.MapGraphQL("/graphql");
             app.Run();
         }
     }
