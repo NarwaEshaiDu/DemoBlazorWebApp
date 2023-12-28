@@ -1,5 +1,6 @@
-﻿using Blazor2App.Application.Features.Schema.Mutations;
+﻿using Blazor2App.Application.Features.Schema.DTO;
 using Blazor2App.Application.Features.Schema.Queries;
+using Blazor2App.Application.Models;
 
 namespace Blazor2App.Server
 {
@@ -7,19 +8,14 @@ namespace Blazor2App.Server
     {
         public static void RegisterGraphQL(this IServiceCollection services, IConfiguration configuration)
         {
-            services
-                .AddRouting();
-
-            services
-                .AddGraphQLServer()
-                .AddQueryType<QueryCourses>()
-                .AddMutationType<Mutation>();
-
-
-            //TODO: make dynamic like dbcontext
-            services
-                .AddGraphQLServer("studentSchema")
-                .AddQueryType<QueryStudents>();
+            services.AddGraphQLServer()
+              .AddQueryType<Query>()
+              .AddTypeExtension<QueryCourses>()
+              .AddTypeExtension<QueryStudents>()
+              .AddType<CourseModel>()
+              .AddType<InstructorModel>()
+              .AddType<StudentModel>()
+              .AddAuthorization();
         }
     }
 }

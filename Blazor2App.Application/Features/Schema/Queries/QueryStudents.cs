@@ -5,6 +5,7 @@ using MediatR;
 
 namespace Blazor2App.Application.Features.Schema.Queries
 {
+    [ExtendObjectType(typeof(Query))]
     public class QueryStudents
     {
         [Authorize]
