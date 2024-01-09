@@ -15,7 +15,7 @@ namespace Blazor2App.Server
               .AddType<CourseModel>()
               .AddType<InstructorModel>()
               .AddType<StudentModel>()
-              .AddAuthorization()
+              //.AddAuthorization()
               ;
         }
     }

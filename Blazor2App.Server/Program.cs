@@ -26,8 +26,7 @@ namespace Blazor2App.Server
             });
 
             var app = builder.Build();
-            app.UseAuthentication();
-            app.UseAuthorization();
+         
 
             if (app.Environment.IsDevelopment())
             {
@@ -60,7 +59,8 @@ namespace Blazor2App.Server
             });
 
             app.UseRouting();
-          
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseSerilogRequestLogging();
             app.MapRazorPages();
             app.MapControllers();

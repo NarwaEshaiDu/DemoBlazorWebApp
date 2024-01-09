@@ -2,6 +2,7 @@
 using Blazor2App.Application.Features.Students.Queries;
 using Blazor2App.Application.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Serilog;
@@ -16,6 +17,7 @@ namespace Blazor2App.Server.Controllers.V1.StudentController
     [Route(BaseStudentsRoute)]
     [ApiController]
     [ApiVersion(1.0)]
+    [Authorize]
     public class StudentController : AllphiControllerBase
     {
         private readonly IMediator _mediator;

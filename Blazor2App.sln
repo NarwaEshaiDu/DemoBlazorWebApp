@@ -2,11 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 16.0.0.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor2App.Server", "Server\Blazor2App.Server.csproj", "{563B85AD-5CE0-49D0-B37C-FFE67719A96A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor2App.Server", "Blazor2App.Server\Blazor2App.Server.csproj", "{563B85AD-5CE0-49D0-B37C-FFE67719A96A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor2App.Client", "Client\Blazor2App.Client.csproj", "{AF3C12A3-629C-4173-B285-629E4468DD0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor2App.Client", "Blazor2App.Client\Blazor2App.Client.csproj", "{AF3C12A3-629C-4173-B285-629E4468DD0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor2App.Shared", "Shared\Blazor2App.Shared.csproj", "{471A8CB9-20CA-4017-A720-21032E52769E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor2App.Shared", "Blazor2App.Shared\Blazor2App.Shared.csproj", "{471A8CB9-20CA-4017-A720-21032E52769E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor2App.Database", "Blazor2App.Database\Blazor2App.Database.csproj", "{7F916CF9-3914-4F13-A31A-F7B171D2FB7C}"
 EndProject
@@ -15,6 +15,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor2App.Repository", "Blazor2App.Repository\Blazor2App.Repository.csproj", "{CA81A039-C21D-443D-AD78-A9129A6B1CA2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor2App.ServiceBus", "Blazor2App.ServiceBus\Blazor2App.ServiceBus.csproj", "{CA71B139-7A33-4E0D-B789-E72EDCD354E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.Hosting", "01.Hosting", "{4F03349B-F593-43FF-8AC3-840F9719533C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Infrastructure", "02.Infrastructure", "{80316025-82CE-4DCA-AAC8-34C7D5422911}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Application", "03.Application", "{BA2EA905-E129-4F9C-8FC0-BE643F9B967D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99.Shared", "99.Shared", "{AE73CD1E-7ED0-4E5E-961B-28D9CFCC5FF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,6 +121,15 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{563B85AD-5CE0-49D0-B37C-FFE67719A96A} = {4F03349B-F593-43FF-8AC3-840F9719533C}
+		{AF3C12A3-629C-4173-B285-629E4468DD0A} = {4F03349B-F593-43FF-8AC3-840F9719533C}
+		{471A8CB9-20CA-4017-A720-21032E52769E} = {AE73CD1E-7ED0-4E5E-961B-28D9CFCC5FF5}
+		{7F916CF9-3914-4F13-A31A-F7B171D2FB7C} = {80316025-82CE-4DCA-AAC8-34C7D5422911}
+		{074EFAF3-EF03-4F5A-B63E-15579A25C122} = {BA2EA905-E129-4F9C-8FC0-BE643F9B967D}
+		{CA81A039-C21D-443D-AD78-A9129A6B1CA2} = {80316025-82CE-4DCA-AAC8-34C7D5422911}
+		{CA71B139-7A33-4E0D-B789-E72EDCD354E3} = {80316025-82CE-4DCA-AAC8-34C7D5422911}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A15DB84E-1B1F-4125-AF86-6C268EE10C55}
