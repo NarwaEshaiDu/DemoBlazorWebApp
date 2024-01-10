@@ -21,13 +21,17 @@ namespace Blazor2App.Repository.Repositories
 
         public async Task<int> UpdateAsync(StudentModel studentModel, CancellationToken cancellationToken)
         {
+            //currently not implemented
             await _dbContext.StudentEntities.SingleUpdateAsync(StudentEntity.FromModelToEntity(studentModel), cancellationToken);
             return await _dbContext.SaveChangesAsync(cancellationToken);
         }
         public async Task<int> SaveAsync(StudentModel student, CancellationToken cancellationToken)
         {
-            await _dbContext.StudentEntities.AddAsync(StudentEntity.FromModelToEntity(student), cancellationToken);
-            return await _dbContext.SaveChangesAsync(cancellationToken);
+            var entity = StudentEntity.FromModelToEntity(student);
+            await _dbContext.StudentEntities.AddAsync(entity, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return entity.Id;
         }
     }
 }

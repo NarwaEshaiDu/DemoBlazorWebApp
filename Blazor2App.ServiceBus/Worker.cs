@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Blazor2App.ServiceBus
 {
@@ -19,6 +20,9 @@ namespace Blazor2App.ServiceBus
                 {
                     Name = "test"
                 }, stoppingToken);
+
+                Log.Logger.Error("hi");
+
                 await Task.Delay(1000, stoppingToken);
             }
         }

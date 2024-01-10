@@ -1,4 +1,5 @@
-﻿using Blazor2App.Database.Base;
+﻿using Blazor2App.Application.Bus;
+using Blazor2App.Database.Base;
 using Blazor2App.ServiceBus;
 using MassTransit;
 using System.Reflection;
@@ -30,6 +31,7 @@ namespace Blazor2App.Server
 
                 x.UsingAzureServiceBus((context, cfg) =>
                 {
+                    cfg.Publish<BaseMessage>(c => c.Exclude = true);
                     cfg.AutoStart = true;
                     cfg.Host(host);
 

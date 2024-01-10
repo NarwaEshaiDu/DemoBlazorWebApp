@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using Blazor2App.Application.Features.Students.Queries;
 using Blazor2App.Application.Models;
+using Blazor2App.Server.Controllers.V1.StudentController.Create;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -50,6 +51,7 @@ namespace Blazor2App.Server.Controllers.V1.StudentController
         [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(GetAll.ResponseExample))]
         public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
         {
+            //TODO, move this to handler - -- - find middlware logic, not rewrite this whole logic for every hanlder lets say
             var cacheKey = "studentsCacheKey";
             if (_memoryCache.TryGetValue(cacheKey, out IEnumerable<StudentModel> students))
             {
@@ -94,16 +96,19 @@ namespace Blazor2App.Server.Controllers.V1.StudentController
             return "value";
         }
 
-        // POST api/<StudentController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
-        // PUT api/<StudentController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpPost("")]
+        public async Task<IActionResult> CreateStudentAsync(Command command, CancellationToken cancellationToken)
         {
+            var response = await _mediator.Send(command.ToMediatorCommand(), cancellationToken);
+
+            return Ok(response.Id);
         }
 
         // DELETE api/<StudentController>/5

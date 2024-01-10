@@ -1,6 +1,6 @@
-﻿using Blazor2App.Database.Base;
+﻿using Blazor2App.Appllication.Models;
+using Blazor2App.Database.Base;
 using Blazor2App.Database.Entities;
-using BlazorApp2.Appllication.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

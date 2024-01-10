@@ -1,4 +1,4 @@
-﻿namespace BlazorApp2.Appllication.Models
+﻿namespace Blazor2App.Appllication.Models
 {
     public class PagedList<T>
     {

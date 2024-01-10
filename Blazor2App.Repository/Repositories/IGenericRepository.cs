@@ -1,5 +1,5 @@
-﻿using Blazor2App.Database.Entities;
-using BlazorApp2.Appllication.Models;
+﻿using Blazor2App.Appllication.Models;
+using Blazor2App.Database.Entities;
 using System.Linq.Expressions;
 
 namespace Blazor2App.Repository.Repositories
