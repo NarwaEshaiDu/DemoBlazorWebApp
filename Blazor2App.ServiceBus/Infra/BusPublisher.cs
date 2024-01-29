@@ -14,9 +14,11 @@ namespace Blazor2App.ServiceBus.Infra
 
         public async Task SendAsync<T>(T command, CancellationToken cancellationToken) where T : BaseMessage, IBusCommand
         {
-            //TODO: check if there is already a correlation id, if not make one else use the existing one
-            Guid correlationId = Guid.NewGuid();
-            command.CorrelationId = correlationId;
+            //retry policy ? 
+            if (command.CorrelationId == Guid.Empty || command.CorrelationId == default)
+            {
+                command.CorrelationId = Guid.NewGuid();
+            }
 
             await _bus.Publish(command, cancellationToken);
         }

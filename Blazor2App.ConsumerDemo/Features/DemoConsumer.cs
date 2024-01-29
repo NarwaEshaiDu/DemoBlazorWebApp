@@ -9,13 +9,12 @@ namespace Blazor2App.ConsumerDemo.Features
     public class DemoConsumer : BaseConsumer,
         IConsumer<DemoBusCommand>,
         IConsumer<CreateStudentBusCommand>
-
     {
         private readonly IMediator _mediator;
         public DemoConsumer()
         { }
 
-        public DemoConsumer(Microsoft.Extensions.Logging.ILogger<DemoConsumer> logger, IMediator mediator) : base(logger)
+        public DemoConsumer(IMediator mediator) : base()
         {
             _mediator = mediator;
         }

@@ -16,7 +16,6 @@ namespace Blazor2App.ServiceBus
         public async Task SendAsync<T>(T command, CancellationToken cancellationToken) where T : BaseMessage, IBusCommand
         {
             await _busPublisher.SendAsync(command, cancellationToken);
-            //await _bus.Publish(command, cancellationToken);
         }
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -25,7 +24,7 @@ namespace Blazor2App.ServiceBus
             {
                 await this.SendAsync(new CreateStudentBusCommand(), cancellationToken);
 
-                Log.Logger.Error("hi");
+                Log.Logger.Error("hi, im the worker and i publish every second a new post.");
 
                 await Task.Delay(1000, cancellationToken);
             }

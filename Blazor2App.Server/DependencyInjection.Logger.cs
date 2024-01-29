@@ -15,7 +15,7 @@ namespace Blazor2App.Server
         /// <param name="configuration"></param>
         public static void RegisterLogger(this IServiceCollection services, IConfiguration configuration)
         {
-            var levelSwitch = new LoggingLevelSwitch(Serilog.Events.LogEventLevel.Warning);
+            var levelSwitch = new LoggingLevelSwitch(Serilog.Events.LogEventLevel.Information);
             Log.Logger = new LoggerConfiguration()
                .MinimumLevel.ControlledBy(levelSwitch)
                .WriteTo.Console(levelSwitch: levelSwitch).CreateLogger();

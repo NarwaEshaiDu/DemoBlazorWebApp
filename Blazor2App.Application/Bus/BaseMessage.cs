@@ -4,6 +4,5 @@
     {
         public Guid CorrelationId { get; set; }
         public string AuthenticatedUserEmail { get; set; }
-        public Guid? MessageId { get; set; }
     }
 }
