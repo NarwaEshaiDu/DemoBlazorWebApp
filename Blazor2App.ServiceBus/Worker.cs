@@ -1,29 +1,33 @@
-﻿using MassTransit;
+﻿using Blazor2App.Application.Bus;
+using Blazor2App.Application.Features.Students.Commands;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
 namespace Blazor2App.ServiceBus
 {
-    public class Worker : BackgroundService
+    public class Worker : BackgroundService, IBusPublisher
     {
-        readonly IBus _bus;
-        public Worker(IBus bus)
+        private readonly IBusPublisher _busPublisher;
+        public Worker(IBusPublisher busPublisher)
         {
-            _bus = bus;
+            _busPublisher = busPublisher;
         }
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
 
-            while (!stoppingToken.IsCancellationRequested)
+        public async Task SendAsync<T>(T command, CancellationToken cancellationToken) where T : BaseMessage, IBusCommand
+        {
+            await _busPublisher.SendAsync(command, cancellationToken);
+            //await _bus.Publish(command, cancellationToken);
+        }
+
+        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
             {
-                await _bus.Publish(new Hello
-                {
-                    Name = "test"
-                }, stoppingToken);
+                await this.SendAsync(new CreateStudentBusCommand(), cancellationToken);
 
                 Log.Logger.Error("hi");
 
-                await Task.Delay(1000, stoppingToken);
+                await Task.Delay(1000, cancellationToken);
             }
         }
     }

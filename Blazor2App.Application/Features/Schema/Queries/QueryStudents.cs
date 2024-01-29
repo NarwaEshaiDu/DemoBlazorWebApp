@@ -11,7 +11,6 @@ namespace Blazor2App.Application.Features.Schema.Queries
         [Authorize]
         public IEnumerable<StudentModel> GetStudents([Service] IMediator mediator)
         {
-            
             return mediator.Send(new GetAllStudentsQuery()).Result.Students;
         }
     }

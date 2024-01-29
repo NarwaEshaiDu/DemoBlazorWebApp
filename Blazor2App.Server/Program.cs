@@ -11,7 +11,7 @@ namespace Blazor2App.Server
     /// </summary>
     public class Program
     {
-        private static async Task Main(string[] args)
+        private static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +26,7 @@ namespace Blazor2App.Server
             });
 
             var app = builder.Build();
-         
+
 
             if (app.Environment.IsDevelopment())
             {

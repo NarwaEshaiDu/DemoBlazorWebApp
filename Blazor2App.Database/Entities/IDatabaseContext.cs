@@ -5,7 +5,7 @@ namespace Blazor2App.Database.Entities
     public interface IDatabaseContext
     {
         /// <summary>
-        /// Access db context info for additional functionality. Only use this if you know what you're doing.
+        /// Access db context info for additional functionality
         /// </summary>
         DbContext Context { get; }
 

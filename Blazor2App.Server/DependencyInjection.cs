@@ -22,8 +22,6 @@ namespace Blazor2App.Server
             RegisterSwagger(services, configuration);
             RegisterGraphQL(services, configuration);
 
-            services.AddRazorPages();
-
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             
             services.AddControllersWithViews();

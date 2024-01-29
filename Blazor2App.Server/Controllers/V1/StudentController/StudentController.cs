@@ -107,7 +107,6 @@ namespace Blazor2App.Server.Controllers.V1.StudentController
         public async Task<IActionResult> CreateStudentAsync(Command command, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(command.ToMediatorCommand(), cancellationToken);
-
             return Ok(response.Id);
         }
 

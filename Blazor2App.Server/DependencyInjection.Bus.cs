@@ -1,6 +1,7 @@
 ﻿using Blazor2App.Application.Bus;
-using Blazor2App.Database.Base;
+using Blazor2App.ConsumerDemo.Features;
 using Blazor2App.ServiceBus;
+using Blazor2App.ServiceBus.Infra;
 using MassTransit;
 using System.Reflection;
 
@@ -22,7 +23,6 @@ namespace Blazor2App.Server
 
                 x.SetInMemorySagaRepositoryProvider();
 
-                //Different library class
                 var entryAssembly = Assembly.GetAssembly(typeof(Worker));
 
                 x.AddSagaStateMachines(entryAssembly);
@@ -31,9 +31,11 @@ namespace Blazor2App.Server
 
                 x.UsingAzureServiceBus((context, cfg) =>
                 {
-                    cfg.Publish<BaseMessage>(c => c.Exclude = true);
+                    //cfg.UseSendFilter(typeof(BusMessageAuthFilter<>), context);
                     cfg.AutoStart = true;
                     cfg.Host(host);
+
+                    MessageCorrelation.UseCorrelationId<BaseMessage>(msg => msg.CorrelationId);
 
                     IEndpointNameFormatter endpointNameFormatter = new KebabCaseEndpointNameFormatter(true);
                     IEntityNameFormatter entityNameFormatter = cfg.MessageTopology.EntityNameFormatter;
@@ -42,7 +44,7 @@ namespace Blazor2App.Server
                     cfg.ConfigureEndpoints(context, endpointNameFormatter);
                 });
 
-                x.AddConsumers(entryAssembly);
+                x.AddConsumer<DemoConsumer>();
 
                 services.AddHostedService<Worker>();
             });

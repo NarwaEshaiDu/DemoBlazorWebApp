@@ -4,7 +4,6 @@ using MediatR;
 
 namespace Blazor2App.Application.Features.Schema.Queries
 {
-    public class Query { }
     [ExtendObjectType(typeof(Query))]
     public class QueryCourses
     {

@@ -2,5 +2,6 @@
 {
     public interface IBusCommand
     {
+        public Guid CorrelationId { get; set; }
     }
 }

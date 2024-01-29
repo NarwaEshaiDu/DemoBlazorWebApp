@@ -1,7 +1,10 @@
-﻿using Blazor2App.Application.Repositories;
+﻿using Blazor2App.Application;
+using Blazor2App.Application.Bus;
+using Blazor2App.Application.Repositories;
 using Blazor2App.Database.Base;
 using Blazor2App.Database.Entities;
 using Blazor2App.Repository.Repositories;
+using Blazor2App.ServiceBus.Infra;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 namespace Blazor2App.Server
 {
@@ -16,6 +19,9 @@ namespace Blazor2App.Server
         {
             services.AddScoped<IDatabaseContext, DataContext>();
             services.AddScoped<IStudentRepository, StudentRepository>();
+
+
+            services.AddSingleton<IBusPublisher, BusPublisher>();
         }
     }
 }
