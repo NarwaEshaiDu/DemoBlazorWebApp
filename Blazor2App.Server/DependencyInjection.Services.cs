@@ -20,8 +20,7 @@ namespace Blazor2App.Server
             services.AddScoped<IDatabaseContext, DataContext>();
             services.AddScoped<IStudentRepository, StudentRepository>();
 
-
-            services.AddSingleton<IBusPublisher, BusPublisher>();
+            services.AddTransient<IBusPublisher, BusPublisher>();
         }
     }
 }

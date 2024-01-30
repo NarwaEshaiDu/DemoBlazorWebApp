@@ -18,7 +18,6 @@ namespace Blazor2App.Server
             builder.Services.RegisterDependencies(builder.Configuration);
             builder.Host.UseSerilog();
 
-
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddDbContext<DataContext>(options =>
             {
@@ -26,7 +25,6 @@ namespace Blazor2App.Server
             });
 
             var app = builder.Build();
-
 
             if (app.Environment.IsDevelopment())
             {

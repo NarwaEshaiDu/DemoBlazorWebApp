@@ -1,5 +1,4 @@
-﻿using Blazor2App.Application.Bus.BusCommands;
-using Blazor2App.Application.Features.Students.Commands;
+﻿using Blazor2App.Application.Features.Students.Commands;
 using Blazor2App.ServiceBus.Infra;
 using MassTransit;
 using MediatR;
@@ -7,7 +6,6 @@ using MediatR;
 namespace Blazor2App.ConsumerDemo.Features
 {
     public class DemoConsumer : BaseConsumer,
-        IConsumer<DemoBusCommand>,
         IConsumer<CreateStudentBusCommand>
     {
         private readonly IMediator _mediator;
@@ -17,17 +15,6 @@ namespace Blazor2App.ConsumerDemo.Features
         public DemoConsumer(IMediator mediator) : base()
         {
             _mediator = mediator;
-        }
-
-        public async Task Consume(ConsumeContext<DemoBusCommand> context)
-        {
-            await Consume(context, async () =>
-            {
-                var message = context.Message;
-
-                await _mediator.Send(CreateStudentCommand.CreateCommand("hamza"), default);
-
-            }, "TriggerStartCreateStudent", "TriggerOkCreateStudent", "TriggerUpdateReadOnlyBugEventFailed", new { context.CorrelationId, context.MessageId, context.Message });
         }
 
         public async Task Consume(ConsumeContext<CreateStudentBusCommand> context)

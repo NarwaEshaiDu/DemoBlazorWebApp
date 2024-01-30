@@ -6,6 +6,7 @@
     <UserSecretsId>Blazor2App.Server-c1a5400a-b50e-4bd7-9121-41ef527a6512</UserSecretsId>
     <WebProject_DirectoryAccessLevelKey>0</WebProject_DirectoryAccessLevelKey>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<UserSecretsId>3d027ac0-78b0-434a-b1b0-0630ff70a46b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
