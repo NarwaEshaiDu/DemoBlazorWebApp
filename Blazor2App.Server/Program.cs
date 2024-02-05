@@ -1,5 +1,6 @@
 using Asp.Versioning.ApiExplorer;
 using Blazor2App.Database.Base;
+using Blazor2App.Database.OutboxDb;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -23,6 +24,13 @@ namespace Blazor2App.Server
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            builder.Services.AddDbContext<OutboxDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("OutBoxConnection"));
+            });
+
+            builder.Services.AddMemoryCache();
 
             var app = builder.Build();
 
@@ -60,6 +68,7 @@ namespace Blazor2App.Server
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSerilogRequestLogging();
+
             app.MapRazorPages();
             app.MapControllers();
             app.MapFallbackToFile("index.html");

@@ -1,7 +1,7 @@
 ﻿using Blazor2App.Application.Bus;
 using Blazor2App.ConsumerDemo.Features;
+using Blazor2App.Database.OutboxDb;
 using Blazor2App.ServiceBus;
-using Blazor2App.ServiceBus.Infra;
 using MassTransit;
 using System.Reflection;
 
@@ -14,10 +14,21 @@ namespace Blazor2App.Server
         /// </summary>
         /// <param name="services"></param>
         /// <param name="configuration"></param>
-        public static void RegisterBus(this IServiceCollection services, IConfiguration configuration)
+        public static void RegisterMassTransit(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddMassTransit(x =>
             {
+                x.AddEntityFrameworkOutbox<OutboxDbContext>(o =>
+                {
+                    o.UseSqlServer();
+                    o.UseBusOutbox();
+                });
+
+                x.AddConfigureEndpointsCallback((context, name, cfg) =>
+                {
+                    cfg.UseEntityFrameworkOutbox<OutboxDbContext>(context);
+                });
+
                 x.SetKebabCaseEndpointNameFormatter();
                 var host = configuration["ConnectionStrings:Asb:Url"];
 

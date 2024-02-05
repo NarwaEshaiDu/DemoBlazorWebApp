@@ -51,7 +51,10 @@ namespace Blazor2App.Server.Controllers.V1.StudentController
         [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(GetAll.ResponseExample))]
         public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
         {
-            //TODO, move this to handler - -- - find middlware logic, not rewrite this whole logic for every hanlder lets say
+            //Middleware is not the solution for this case, too many dependencies.
+            //Use IoC instead.
+            //Maybe use interceptors ?
+            //Move to handler ? 
             var cacheKey = "studentsCacheKey";
             if (_memoryCache.TryGetValue(cacheKey, out IEnumerable<StudentModel> students))
             {

@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Blazor2App.Application\Blazor2App.Application.csproj" />
+    <ProjectReference Include="..\Blazor2App.Database\Blazor2App.Database.csproj" />
     <ProjectReference Include="..\Blazor2App.Infrastructure\Blazor2App.Infrastructure.csproj" />
   </ItemGroup>
 

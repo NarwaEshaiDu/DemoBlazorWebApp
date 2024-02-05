@@ -17,7 +17,7 @@ namespace Blazor2App.Server
         public static void RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             RegisterServices(services, configuration);
-            RegisterBus(services, configuration);
+            RegisterMassTransit(services, configuration);
             RegisterLogger(services, configuration);
             RegisterSwagger(services, configuration);
             RegisterGraphQL(services, configuration);

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Blazor2App.Database.Base
 {
-    public class DataContext : DbContext, IDatabaseContext
+    public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

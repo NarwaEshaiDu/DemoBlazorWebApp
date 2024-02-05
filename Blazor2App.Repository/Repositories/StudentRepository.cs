@@ -1,5 +1,6 @@
 ﻿using Blazor2App.Application.Models;
 using Blazor2App.Application.Repositories;
+using Blazor2App.Database.Base;
 using Blazor2App.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,8 +8,8 @@ namespace Blazor2App.Repository.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
-        private readonly IDatabaseContext _dbContext;
-        public StudentRepository(IDatabaseContext dbContext)
+        private readonly DataContext _dbContext;
+        public StudentRepository(DataContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -21,7 +22,6 @@ namespace Blazor2App.Repository.Repositories
 
         public async Task<int> UpdateAsync(StudentModel studentModel, CancellationToken cancellationToken)
         {
-            //currently not implemented
             await _dbContext.StudentEntities.SingleUpdateAsync(StudentEntity.FromModelToEntity(studentModel), cancellationToken);
             return await _dbContext.SaveChangesAsync(cancellationToken);
         }
