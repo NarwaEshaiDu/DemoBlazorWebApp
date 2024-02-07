@@ -8,8 +8,13 @@ h1:focus {
     outline: none;
 }
 
+.div{
+    background-color:black;
+}
+
 a, .btn-link {
-    color: #0071c1;
+    color: whitesmoke !important;
+    font-size: 1.2rem;
 }
 
 .btn-primary {

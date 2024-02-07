@@ -4,7 +4,6 @@ using Blazor2App.Database.OutboxDb;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-
 namespace Blazor2App.Server
 {
     /// <summary>
@@ -68,6 +67,8 @@ namespace Blazor2App.Server
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSerilogRequestLogging();
+
+
 
             app.MapRazorPages();
             app.MapControllers();

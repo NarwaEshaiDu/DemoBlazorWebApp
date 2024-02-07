@@ -22,7 +22,7 @@ namespace Blazor2App.ServiceBus
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                await this.SendAsync(new CreateStudentBusCommand(), cancellationToken);
+                //await this.SendAsync(new CreateStudentBusCommand(), cancellationToken);
 
                 Log.Logger.Error("hi, im the worker and i publish every second a new post.");
                 

@@ -1,0 +1,27 @@
+﻿.about-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-left {
+    width: 30%;
+}
+
+.about-right {
+    width: 65%;
+}
+
+.work-experience {
+    margin-bottom: 1.2rem;
+}
+h1 {
+    margin-bottom: 1.2rem; 
+    left:50px;
+}
+
+.profile-picture {
+    max-width: 25%;
+    border-radius: 50%;
+    margin-top: 1rem;
+}
+
