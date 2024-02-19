@@ -1,5 +1,4 @@
-﻿using Asp.Versioning;
-using Blazor2App.Application.Features.Pokemon.Queries;
+﻿using Blazor2App.Application.Features.Pokemon.Queries;
 using HotChocolate.Authorization;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +10,7 @@ namespace Blazor2App.Server.Controllers
     /// </summary>
     [Route(Pokemon)]
     [Authorize]
-    [ApiVersion(1.0)]
+    [Asp.Versioning.ApiVersion(1.0)]
     public class PokeApiController : AllphiControllerBase
     {
         /// <summary>

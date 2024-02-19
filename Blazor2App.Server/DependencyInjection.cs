@@ -21,6 +21,8 @@ namespace Blazor2App.Server
             RegisterLogger(services, configuration);
             RegisterSwagger(services, configuration);
             RegisterGraphQL(services, configuration);
+            AddRateLimitingPolicy(services, configuration);
+            RegisterHealthChecks(services, configuration);
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             

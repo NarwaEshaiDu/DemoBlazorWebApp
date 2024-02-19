@@ -8,7 +8,8 @@ namespace Blazor2App.ServiceBus.Infra
     {
         public BaseConsumer()
         { }
-
+        // Application insight will use the start, ok and error - events.
+        // custom made events to filter on easily.
         public virtual async Task Consume<T>(ConsumeContext<T> context, Func<Task> func, string startEvent, string okEvent, string errorEvent, object eventProperties) where T : class
         {
             await func();

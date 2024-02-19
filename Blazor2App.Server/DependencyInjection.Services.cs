@@ -1,9 +1,6 @@
 ﻿using Blazor2App.Application.Bus;
 using Blazor2App.Application.Repositories;
 using Blazor2App.Application.Services;
-using Blazor2App.Database.Base;
-using Blazor2App.Database.Entities;
-using Blazor2App.Database.OutboxDb;
 using Blazor2App.Repository.Repositories;
 using Blazor2App.ServiceBus.Infra;
 using Blazor2App.Services.Features;

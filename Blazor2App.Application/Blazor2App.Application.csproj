@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Repositories\Enum\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,5 +9,9 @@
 
         [GraphQLNonNullType]
         public IEnumerable<InstructorModel> Instructors { get; set; }
+        public string Description()
+        {
+            return $"{Title}, liked by Khalid";
+        }
     }
 }

@@ -2,7 +2,9 @@ using Asp.Versioning.ApiExplorer;
 using Blazor2App.Database.Base;
 using Blazor2App.Database.OutboxDb;
 using MassTransit;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Polly;
 using Serilog;
 namespace Blazor2App.Server
 {
@@ -11,7 +13,7 @@ namespace Blazor2App.Server
     /// </summary>
     public class Program
     {
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,17 @@ namespace Blazor2App.Server
             });
 
             builder.Services.AddMemoryCache();
+            builder.Services.AddResiliencePipeline<string, HttpResponseMessage>("my-pipeline", builder =>
+            {
+                builder.AddRetry(new()
+                {
+                    MaxRetryAttempts = 2,
+                    ShouldHandle = new PredicateBuilder<HttpResponseMessage>()
+                        .Handle<HttpRequestException>()
+                        .HandleResult(response => response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                })
+                .AddTimeout(TimeSpan.FromSeconds(2));
+            });
 
             var app = builder.Build();
 
@@ -68,13 +81,17 @@ namespace Blazor2App.Server
             app.UseAuthorization();
             app.UseSerilogRequestLogging();
 
-
+            app.MapHealthChecks("/health", new HealthCheckOptions()
+            {
+                Predicate = (check) => true,
+                ResponseWriter = DependencyInjection.WriteResponse
+            });
 
             app.MapRazorPages();
             app.MapControllers();
             app.MapFallbackToFile("index.html");
             app.MapGraphQL("/graphql");
-            app.Run();
+            await app.RunAsync();
         }
     }
 }

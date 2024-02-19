@@ -1,4 +1,3 @@
-using Asp.Versioning;
 using Blazor2App.Shared;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +5,7 @@ namespace Blazor2App.Server.Controllers.V2;
 
 [ApiController]
 [Route(BaseWeathersRoute)]
-[ApiVersion(2.0)]
+[Asp.Versioning.ApiVersion(2.0)]
 public class WeatherForecastController : AllphiControllerBase
 {
     protected const string BaseWeathersRoute = BaseRoute + "weather";

@@ -11,7 +11,7 @@ namespace Blazor2App.Server.Controllers.V1;
 [ApiController]
 [Authorize]
 [Route(BaseWeathersRoute)]
-[ApiVersion(1.0)]
+[Asp.Versioning.ApiVersion(1.0)]
 public class WeatherForecastController : AllphiControllerBase
 {
     protected const string BaseWeathersRoute = BaseRoute + "weather";
@@ -36,7 +36,7 @@ public class WeatherForecastController : AllphiControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [ApiVersion(1.0)]
+    [Asp.Versioning.ApiVersion(1.0)]
     public IEnumerable<WeatherForecast> Get()
     {
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast

@@ -6,9 +6,9 @@ using MediatR;
 namespace Blazor2App.Application.Features.Schema.Queries
 {
     [ExtendObjectType(typeof(Query))]
+    [Authorize]
     public class QueryStudents
     {
-        [Authorize]
         public IEnumerable<StudentModel> GetStudents([Service] IMediator mediator)
         {
             return mediator.Send(new GetAllStudentsQuery()).Result.Students;
