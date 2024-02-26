@@ -2,7 +2,7 @@
 Set default project to Blazor2App.Database
 Add-Migration InitialMigration -Context DataContext
 
-dotnet ef database update --project .\Blazor2App.Server
+update-database -context DataContext
 
 --Outbox
 Set default project to Blazor2App.Database

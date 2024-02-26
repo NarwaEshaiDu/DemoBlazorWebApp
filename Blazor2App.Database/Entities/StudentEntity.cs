@@ -8,6 +8,7 @@ namespace Blazor2App.Database.Entities
         /// Name of Student
         /// </summary>
         public string Name { get; set; }
+        public DateTime LastModified { get; set; }
         public ICollection<BookEntity> Books { get; set; }
 
         public static IEnumerable<StudentModel> ToModel(IEnumerable<StudentEntity> entities)
@@ -26,7 +27,8 @@ namespace Blazor2App.Database.Entities
                 return new StudentModel
                 {
                     Id = entity.Id,
-                    Name = entity.Name
+                    Name = entity.Name,
+                    LastModified = entity.LastModified
                 };
             }
             return null;
@@ -48,7 +50,8 @@ namespace Blazor2App.Database.Entities
                 return new StudentEntity
                 {
                     Id = model.Id,
-                    Name = model.Name
+                    Name = model.Name,
+                    LastModified = model.LastModified
                 };
             }
             return null;

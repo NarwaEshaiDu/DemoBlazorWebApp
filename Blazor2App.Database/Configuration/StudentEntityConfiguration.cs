@@ -10,9 +10,8 @@ namespace Blazor2App.Database.Configuration
         {
             builder.ToTable(Constants.Database.TableStudent, Constants.Database.Schema);
 
-            //Shadow Property
-            builder.Property<DateTime>("LastModified")
-                .HasDefaultValueSql("GETUTCDATE()");
+            builder.Property(e => e.LastModified)
+                .IsRequired();
 
             builder.Property(c => c.Name)
                 .IsRequired()

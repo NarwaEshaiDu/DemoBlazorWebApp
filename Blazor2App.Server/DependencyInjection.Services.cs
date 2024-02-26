@@ -4,6 +4,7 @@ using Blazor2App.Application.Services;
 using Blazor2App.Repository.Repositories;
 using Blazor2App.ServiceBus.Infra;
 using Blazor2App.Services.Features;
+using Microsoft.Extensions.Caching.Memory;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 namespace Blazor2App.Server
 {
@@ -16,11 +17,16 @@ namespace Blazor2App.Server
         /// <param name="configuration"></param>
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IStudentRepository, StudentRepository>();
-
             services.AddTransient<IBusPublisher, BusPublisher>();
 
             services.AddScoped<IPokemonApiService, PokemonApiService>();
+
+            services.AddScoped<StudentRepository>();
+            services.AddScoped<IStudentRepository>(provider =>
+            {
+                var studentRepository = provider.GetService<StudentRepository>();
+                return new CachedStudentRepository(studentRepository, provider.GetService<IMemoryCache>()!);
+            });
         }
     }
 }

@@ -67,48 +67,10 @@ namespace Blazor2App.Server.Controllers.V1.StudentController
         [SwaggerResponseExample((int)HttpStatusCode.OK, typeof(GetAll.ResponseExample))]
         public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
         {
+            //throw new HttpRequestException("shayane");
 
-            throw new HttpRequestException("shayane");
-
-            //Middleware is not the solution for this case, too many dependencies.
-            //Use IoC instead.
-            //Maybe use interceptors ?
-            //Move to handler ? 
-            var cacheKey = "studentsCacheKey";
-            if (_memoryCache.TryGetValue(cacheKey, out IEnumerable<StudentModel> students))
-            {
-                Log.Logger.Warning("Student list still populated.");
-                return Ok(GetAll.Response.Create(students).StudentModels);
-            }
-            else
-            {
-                try
-                {
-                    await semaphore.WaitAsync(cancellationToken);
-                    if (_memoryCache.TryGetValue(cacheKey, out students))
-                    {
-                        Log.Logger.Warning("Student list still populated.");
-                        return Ok(GetAll.Response.Create(students).StudentModels);
-                    }
-                    else
-                    {
-                        var cacheEntryOptions = new MemoryCacheEntryOptions()
-                           .SetSlidingExpiration(TimeSpan.FromSeconds(45))
-                           .SetAbsoluteExpiration(TimeSpan.FromSeconds(3600))
-                           .SetPriority(CacheItemPriority.Normal)
-                           .SetSize(1024);
-                        var response = await _mediator.Send(GetAllStudentsQuery.CreateQuery(), cancellationToken);
-
-                        Log.Logger.Warning("populating students list");
-                        _memoryCache.Set(cacheKey, response.Students, cacheEntryOptions);
-                        return Ok(response.Students);
-                    }
-                }
-                finally
-                {
-                    semaphore.Release();
-                }
-            }
+            var response = await _mediator.Send(GetAllStudentsQuery.CreateQuery(), cancellationToken);
+            return Ok(response.Students);
         }
 
 
@@ -121,17 +83,18 @@ namespace Blazor2App.Server.Controllers.V1.StudentController
 
         }
 
-
         // GET api/<StudentController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id, CancellationToken cancellationToken)
         {
-            return "value";
+            var response = await _mediator.Send(GetStudentByIdQuery.CreateQuery(id), cancellationToken);
+
+            return Ok(response.Student);
         }
 
 
         /// <summary>
-        /// Get student by Id
+        /// Create Student
         /// </summary>
         /// <param name="command"></param>
         /// <param name="cancellationToken"></param>

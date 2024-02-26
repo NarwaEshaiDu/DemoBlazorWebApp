@@ -40,7 +40,7 @@ namespace Blazor2App.ConsumerDemo.Features
             }
         }
 
-        private static int GetRandomNumber()
+        private int GetRandomNumber()
         {
             var rnd = new Random();
             return rnd.Next(0, 11000);

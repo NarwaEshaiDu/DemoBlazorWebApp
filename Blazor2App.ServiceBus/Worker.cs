@@ -24,8 +24,8 @@ namespace Blazor2App.ServiceBus
             {
                 //await this.SendAsync(new CreateStudentBusCommand(), cancellationToken);
 
-                Log.Logger.Error("hi, im the worker and i publish every second a new post.");
-                
+                //Log.Logger.Error("hi, im the worker and i publish every second a new post.");
+
                 await Task.Delay(1000, cancellationToken);
             }
         }
